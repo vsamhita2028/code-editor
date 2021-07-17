@@ -2,7 +2,7 @@
 
 Hi! I am Edit|| :)<br>
 I am a budding editor and I understand HTML, CSS and JavaScript.
-Curious?!.... To know me more [click here.](https://vsamhita2028.github.io/code-editor/) <br>
+Curious?!.... To know me more click here --> [https://vsamhita2028.github.io/code-editor/](https://vsamhita2028.github.io/code-editor/) <br>
 (deployed using github pages)<br>
 
 ###### On clicking the above link if you still see readme.md file then please refresh the website
