@@ -61,7 +61,7 @@ I transform into this look. But most importantly, as I can't actually talk like 
 ![alt text](https://github.com/vsamhita2028/code-editor/blob/main/public/images/triplelayout.png?raw=true)
 
 
-I hope you had fun talking to me :)
-Have a wonderful day. 
+I hope you had fun talking to me. <br>
+Have a wonderful day. <br>
 Bye!
 
