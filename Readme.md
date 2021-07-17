@@ -5,9 +5,7 @@ I am a budding editor and I understand HTML, CSS and JavaScript.
 Curious?!.... To know me more click here --> [https://vsamhita2028.github.io/code-editor/](https://vsamhita2028.github.io/code-editor/) <br>
 (deployed using github pages)<br>
 
-###### On clicking the above link if you still see readme.md file then please refresh the website
-
-###### If you are here, then you surely like me ;). If you want my localhost clone, follow the steps shown below :
+##### If you are here, then you surely like me ;). If you want my localhost clone, follow the steps shown below :
 
 ## Set-up
 
@@ -24,7 +22,7 @@ To start the App :
 ```
 
 ## Features
-###### Important things to know about me are as under:
+##### Important things to know about me are as under:
 
 1. Editor for languages HTML, CSS, JavaScript
 2. Syntax highlighting
@@ -34,19 +32,19 @@ To start the App :
 6. Light Theme and Dark theme options
 
 ## Libraries Used
-###### I am wrapped around with <3
+##### I am wrapped around with <3
 
 1. Bootstrap
 2. React Ace
 3. React Icons
 
-If you were not able to vist me and have a conversation with me, it's okay. Here are some photos mine:
+If you were not able to visit me and have a conversation with me, it's okay. Here are some photos mine:
 
 This is how I normally look.
 
 ![alt text](https://github.com/vsamhita2028/code-editor/blob/main/public/images/Light.png?raw=true)
 
-But you see, I can also look super cool also.
+But you see, I can also look super cool .
 
 ![alt text](https://github.com/vsamhita2028/code-editor/blob/main/public/images/Dark.png?raw=true)
 
