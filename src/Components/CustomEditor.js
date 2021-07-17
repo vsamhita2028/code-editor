@@ -9,7 +9,15 @@ import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/snippets/css";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-textmate";
+import '../App.css';
+
+/* 
+    Custom Editor :
+    Here I have used React Ace library to customize the editor
+*/
 const Customeditor = ({ editorData, index, onChange, displayPreview, editormode }) => {
+
+    // This function is reponsible to set the editordata state and cobine html+css+js for the live view and set it's state
     const bindChanges = (value) => {
         const result = editorData;
         result[index]["content"] = value
@@ -18,6 +26,15 @@ const Customeditor = ({ editorData, index, onChange, displayPreview, editormode 
     }
     return (
         <>
+        {/* 
+          Mode : Sets the language for the editor 
+          value : populates contents into the editor
+          theme : to set the theme
+          wrapEnabled : to wrap the contents of the editor
+          highlightActiveLine : this highlight the line where the user's cursor is present
+          autoScrollEditorIntoView : as its set to true, the editor becomes scrollable.
+          showLineNumbers : line numbers are made visible dude to this prop
+        */}
             <AceEditor
                 height={"87%"}
                 width={"100%"}
@@ -29,11 +46,9 @@ const Customeditor = ({ editorData, index, onChange, displayPreview, editormode 
                 wrapEnabled={true}
                 highlightActiveLine={true}
                 autoScrollEditorIntoView={true}
-                editorProps={{ $blockScrolling: true }}
                 setOptions={{
                     showLineNumbers: true,
                     tabSize: 2,
-                    useWorker: false
                 }}
             />
         </>

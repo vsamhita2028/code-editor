@@ -1,21 +1,27 @@
+import './App.js';
+import { Row } from 'reactstrap';
 import { useState } from 'react';
-import { FaFileCode } from "react-icons/fa";
-import { IoChevronBackOutline, IoChevronForwardOutline, IoSunny, IoMoon } from "react-icons/io5";
-import { IconContext } from "react-icons";
-import './App.css';
-import Customeditor from './CustomEditor';
-import { Navbar, NavbarBrand, Col, Row, Button, Nav, NavItem, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import Appbar from "./Components/Appbar"
 import { Container } from 'react-bootstrap';
+import EditorSection from "./Components/EditorSection";
+/* 
+  The whole page is divided into 3 sections :
+  1) Appbar
+  2) Editor + FileExplorer
+  3) Live view / Output
+*/
 function App() {
-  const [layout, setLayout] = useState({ default: true, tri: false, fullscreen: false })
-  const [lightMode, setMode] = useState(true);
-  const [editorMode, setEditorMode] = useState("textmate")
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggle = () => setDropdownOpen(prevState => !prevState);
-  const [index, setIndex] = useState(0);
-  const [flipIcon, setFlipIcon] = useState(true)
-  const [width, setWidth] = useState("12")
-  const [collapsed, setCollapsed] = useState(false);
+  // All layout and theme states
+  // 1. Layout states :
+  const [layout, setLayout] = useState({ default: true, tri: false })  // This sets the layout of the webpage : Default or Triple View
+  const [collapsed, setCollapsed] = useState(false); // To toggle File explorer. This sets it's visibility
+  const [width, setWidth] = useState("12") // To change layout I have used this state to dynamically change width of a bootstrap column
+  // 2. Theme State
+  const [lightMode, setMode] = useState(true); // To toggle from lightMode to dark Mode. By default its in Light Mode
+  const [editorMode, setEditorMode] = useState("textmate") // To facilitate the toggle of editor's mode/theme between Textmate & Monokai
+  const [fileExplorerBg, setFileExplorerBg] = useState("white") // To toggle the theme of the fileExplorer this is use.
+
+  // editorData : This holds the data of the editor, upon selection of a file from file explorer it populates the data into the editor 
   const [editorData, seteditorData] = useState([
     {
       id: 1,
@@ -39,36 +45,27 @@ function App() {
       content: ""
     },
   ])
+
+  // The Live view of html+css+js is stored in the variable preview 
   const [preview, setPreview] = useState("<html><body>" + editorData[0]["content"] + "<style>" + editorData[1]["content"] + "</style><script>" + editorData[2]["content"] + "</script><body></html>");
-  const [fileExplorerBg, setFileExplorerBg] = useState("white")
-  const toggleExplorer = () => {
-    setCollapsed(!collapsed);
-    setFlipIcon(!flipIcon)
-    if (width === "12" && layout.default) {
-      setWidth("10")
-    } else if (layout.default) {
-      setWidth("12")
-    } else if (layout.tri) {
-      setWidth("5");
-    }
-  }
+  
+  // This function is responsible for toggling the theme of all the components
   const toggleLightMode = () => {
     setMode(!lightMode);
     if (editorMode === "textmate") setEditorMode("monokai");
     else setEditorMode("textmate")
     fileExplorerBg === "white" ? setFileExplorerBg("rgba(66, 66, 69, 1)") : setFileExplorerBg("white")
   }
-  const insertConent = (index) => {
-    setIndex(index);
-  }
+
+  // This function is rsponsible for changing the layout of all the components
   const ChangeLayout = (layout) => {
     if (layout === "default") {
       setWidth("12")
       setCollapsed(false);
-      setLayout({ default: true, tri: false, fullscreen: false })
+      setLayout({ default: true, tri: false })
     } else if (layout === "triple") {
       setWidth("5")
-      setLayout({ default: false, tri: true, fullscreen: false })
+      setLayout({ default: false, tri: true })
       setCollapsed(true);
     }
   }
@@ -76,64 +73,18 @@ function App() {
     <div className="App" style={lightMode ? { backgroundColor: "rgb(241,243,244)" } : { backgroundColor: "rgba(41, 42, 47, 1)" }}>
       <Container fluid>
         <Row>
-          <Navbar color="dark" dark>
-            <NavbarBrand href="/">Custom Editor</NavbarBrand>
-            <Nav className="mr-auto" >
-
-              {!lightMode ? <NavItem style={{ paddingRight: "10px" }}>
-                <IconContext.Provider value={{ color: "white", size: "37px" }}>
-                  <div onClick={toggleLightMode}><IoSunny /></div>
-                </IconContext.Provider>
-              </NavItem> :
-                <NavItem style={{ paddingRight: "10px" }}>
-                  <IconContext.Provider value={{ color: "white", size: "37px" }}>
-                    <div onClick={toggleLightMode}><IoMoon /></div>
-                  </IconContext.Provider>
-                </NavItem>}
-              <NavItem>
-                <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down" style={{ paddingRight: "15px" }}>
-                  <DropdownToggle color="light" outline>
-                    Change Layout
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem onClick={() => ChangeLayout("default")}>Default</DropdownItem>
-                    <DropdownItem onClick={() => ChangeLayout("triple")}>Triple</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </NavItem>
-            </Nav>
-          </Navbar>
+          {/* Appbar Component  */}
+          <Appbar lightMode={lightMode} toggleLightMode={toggleLightMode} ChangeLayout={ChangeLayout} /> 
         </Row>
 
         <Row className="editor-section mt-2" style={layout.tri ? { height: "48em" } : { height: "400px" }} >
-          {collapsed &&
-            <Col md={2} style={layout.tri ? { backgroundColor: fileExplorerBg, height: "94%" } : { backgroundColor: fileExplorerBg }} >
-              <h3 className="mb-3 mt-2" style={{ color: "rgba(182, 179, 179, 1)" }}>File Explorer</h3>
-              <div className="fileExplorer-items" onClick={() => insertConent(0)}  >
-                <IconContext.Provider value={{ color: "rgba(252, 199, 10, 1)", className: "global-class-name" }}>
-                  <FaFileCode /> {editorData[0].name + "." + editorData[0].extension}
-                </IconContext.Provider>
-              </div>
-              <div className="fileExplorer-items" onClick={() => insertConent(1)}>
-                <IconContext.Provider value={{ color: "rgba(252, 199, 10, 1)", className: "global-class-name" }}>
-                  <FaFileCode /> {editorData[0].name + "." + editorData[1].extension}
-                </IconContext.Provider>
-              </div>
-              <div className="fileExplorer-items" onClick={() => insertConent(2)}>
-                <IconContext.Provider value={{ color: "rgba(252, 199, 10, 1)", className: "global-class-name" }}>
-                  <FaFileCode /> {editorData[0].name + "." + editorData[2].extension}
-                </IconContext.Provider>
-              </div>
-            </Col>}
-          <Col md={width}>
-            <h2><span><Button color={"light"} onClick={toggleExplorer}>{flipIcon ? <IoChevronForwardOutline /> : <IoChevronBackOutline />}</Button>{" "}<span className="custom-badge">{editorData[index]["language"]}</span></span> </h2>
-            {<Customeditor editorData={editorData} index={index} onChange={seteditorData} displayPreview={setPreview} editormode={editorMode} />}
-          </Col>
-          {layout.tri && <Col md={5} className="mt-2">
-            <center><span className="preview-badge" style={{ width: "5em", padding: "0.5em" }}>Preview</span></center>
-            <iframe className={"mt-3"} title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="86.8%" ></iframe>
-          </Col>}
+          {/*  Editor and the File Explore are present in the EditorSection Component  */}
+          <EditorSection
+            layout={layout} editorMode={editorMode} fileExplorerBg={fileExplorerBg} editorData={editorData} seteditorData={seteditorData}
+            preview={preview} setPreview={setPreview} collapsed={collapsed} setCollapsed={setCollapsed} width={width} setWidth={setWidth}
+          />
         </Row>
+        {/* This shows the live view of the changes made in the editor */}
         {layout.default && <Row className="live-view">
           <center><span className="preview-badge" style={{ width: "5em", padding: "0.4em" }}>Preview</span></center>
           <span className="mt-3"></span>
