@@ -16,7 +16,7 @@ const Appbar = ({ lightMode, toggleLightMode, ChangeLayout }) => {
   return (
     <>
       <Navbar color="dark" dark>
-        <NavbarBrand href="/">
+        <NavbarBrand href="#">
           <IconContext.Provider value={{ color: "white", size: "37px" }}>
             <div ><AiFillCode /> EDIT||</div>
           </IconContext.Provider>
