@@ -55,7 +55,7 @@ const EditorSection = (
                 </Col>}
             <Col md={width}>
                 {/* Here the language selected is how and the toggle button of file Explorer is present */}
-                <h2><span>{layout.default && <Button color={"light"} onClick={toggleExplorer}>{flipIcon ? <IoChevronForwardOutline /> : <IoChevronBackOutline />}</Button>}{" "}<span className="custom-badge">{editorData[index]["language"]}</span></span> </h2>
+                <h2 style={{paddingBottom :"0.2em"}}><span>{layout.default && <Button color={"light"} onClick={toggleExplorer}>{flipIcon ? <IoChevronForwardOutline /> : <IoChevronBackOutline />}</Button>}{" "}<span className="custom-badge">{editorData[index]["language"].toUpperCase() }</span></span> </h2>
                 {/* This component contains the editor. (More details about the componet are present in respective component file ) */}
                 {<Customeditor editorData={editorData} index={index} onChange={seteditorData} displayPreview={setPreview} editormode={editorMode} />}
             </Col>
@@ -66,8 +66,8 @@ const EditorSection = (
                 The Live View Section in the App.js is only visible in default layout otherwise it is hidden
             */}
             {layout.tri && <Col md={5} className="mt-2">
-                <span className="preview-badge" style={{ width: "5em", padding: "0.5em" }}>Preview</span>
-                <iframe className={"mt-3"} title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="86.8%" ></iframe>
+                <span className="preview-badge" style={{ width: "5em", padding: "0.5em" }}>PREVIEW</span>
+                <iframe className={"mt-3"} title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="87.3%" ></iframe>
             </Col>}
         </>
     );

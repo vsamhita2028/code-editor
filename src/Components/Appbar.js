@@ -1,6 +1,7 @@
 import '../App.css';
 import { useState } from 'react';
 import { IconContext } from "react-icons";
+import { AiFillCode } from "react-icons/ai";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { Navbar, NavbarBrand, Nav, NavItem, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
@@ -15,7 +16,11 @@ const Appbar = ({ lightMode, toggleLightMode, ChangeLayout }) => {
   return (
     <>
       <Navbar color="dark" dark>
-        <NavbarBrand href="/">Custom Editor</NavbarBrand>
+        <NavbarBrand href="/">
+          <IconContext.Provider value={{ color: "white", size: "37px" }}>
+            <div ><AiFillCode /> EDIT||</div>
+          </IconContext.Provider>
+        </NavbarBrand>
         <Nav className="mr-auto" >
           {/* The teranary operator is responsible to switch the icon that represents light mode and dark mode */}
           {!lightMode ? <NavItem style={{ paddingRight: "10px" }}>

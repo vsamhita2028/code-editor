@@ -2,6 +2,7 @@
  margin: 0;
  padding: 0;
  background-color: rgb(241,243,244) ;
+ font-family: 'Source Code Pro', monospace;
 }
 
 .editor-section{
@@ -43,7 +44,6 @@ iframe{
 .preview-badge{
   background: rgba(224, 246, 224, 1);
   font-size: 22px;
-  font-weight: bold;
   color: rgba(70, 140, 68, 1);
   border-radius: 10px;
 }

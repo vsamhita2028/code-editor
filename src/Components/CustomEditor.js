@@ -46,6 +46,7 @@ const Customeditor = ({ editorData, index, onChange, displayPreview, editormode 
                 wrapEnabled={true}
                 highlightActiveLine={true}
                 autoScrollEditorIntoView={true}
+                editorProps={{ $blockScrolling: true }}
                 setOptions={{
                     showLineNumbers: true,
                     tabSize: 2,

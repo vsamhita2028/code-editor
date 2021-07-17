@@ -71,13 +71,13 @@ function App() {
   }
   return (
     <div className="App" style={lightMode ? { backgroundColor: "rgb(241,243,244)" } : { backgroundColor: "rgba(41, 42, 47, 1)" }}>
-      <Container fluid>
+      <Container fluid style={{paddingBottom : "0.5em"}}>
         <Row>
           {/* Appbar Component  */}
           <Appbar lightMode={lightMode} toggleLightMode={toggleLightMode} ChangeLayout={ChangeLayout} /> 
         </Row>
 
-        <Row className="editor-section mt-2" style={layout.tri ? { height: "48em" } : { height: "400px" }} >
+        <Row className="editor-section mt-2 mb-3" style={layout.tri ? { height: "48em" } : { height: "400px" }} >
           {/*  Editor and the File Explore are present in the EditorSection Component  */}
           <EditorSection
             layout={layout} editorMode={editorMode} fileExplorerBg={fileExplorerBg} editorData={editorData} seteditorData={seteditorData}
@@ -86,9 +86,9 @@ function App() {
         </Row>
         {/* This shows the live view of the changes made in the editor */}
         {layout.default && <Row className="live-view">
-          <center><span className="preview-badge" style={{ width: "5em", padding: "0.4em" }}>Preview</span></center>
+          <center><span className="preview-badge" style={{ width: "5em", padding: "0.4em" }}>PREVIEW</span></center>
           <span className="mt-3"></span>
-          <iframe title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="275px"></iframe>
+          <iframe title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="255px"></iframe>
         </Row>}
       </Container>
     </div>
