@@ -1,0 +1,51 @@
+.App {
+ margin: 0;
+ padding: 0;
+ background-color: rgb(241,243,244) ;
+ height: 100vh;
+}
+
+.editor-section{
+  padding: 0;
+  margin: 0;
+  padding-bottom: 1em;
+  height: 400px;
+}
+.live-view{
+  padding: 0;
+  margin: 0;
+}
+iframe{
+  margin: 0;
+  padding: 0;
+ 
+  /* background-color: aqua; 241 243 244 100%*/
+  /* height: 320px; */
+}
+.divider{
+  border: none;
+  border-bottom: 2px solid black;
+}
+.fileExplorer-items{
+  padding: 0.5em;
+  border-radius: 2px;
+  color: rgba(172, 165, 165, 1);
+}
+.fileExplorer-items:hover{
+  background-color: rgba(227, 227, 227, 1);
+}
+
+.custom-badge{
+  background:  rgba(223, 237, 249, 1);
+  color: rgba(54, 113, 131, 1);
+  font-size: 22px;
+  padding: 0.6em;
+  border-radius: 10px;
+}
+.preview-badge{
+  background: rgba(224, 246, 224, 1);
+  font-size: 22px;
+  font-weight: bold;
+  color: rgba(70, 140, 68, 1);
+  border-radius: 10px;
+}
