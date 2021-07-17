@@ -2,7 +2,6 @@
  margin: 0;
  padding: 0;
  background-color: rgb(241,243,244) ;
- height: 100vh;
 }
 
 .editor-section{
@@ -18,9 +17,7 @@
 iframe{
   margin: 0;
   padding: 0;
- 
-  /* background-color: aqua; 241 243 244 100%*/
-  /* height: 320px; */
+ background-color: white;
 }
 .divider{
   border: none;
@@ -33,13 +30,14 @@ iframe{
 }
 .fileExplorer-items:hover{
   background-color: rgba(227, 227, 227, 1);
+  cursor: pointer;
 }
 
 .custom-badge{
   background:  rgba(223, 237, 249, 1);
   color: rgba(54, 113, 131, 1);
   font-size: 22px;
-  padding: 0.6em;
+  padding: 0.4em;
   border-radius: 10px;
 }
 .preview-badge{

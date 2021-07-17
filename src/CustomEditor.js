@@ -8,12 +8,13 @@ import "ace-builds/src-noconflict/snippets/javascript";
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/snippets/css";
 import "ace-builds/src-noconflict/theme-monokai";
-const Customeditor = ({editorData,index,onChange,displayPreview}) => {
+import "ace-builds/src-noconflict/theme-textmate";
+const Customeditor = ({ editorData, index, onChange, displayPreview, editormode }) => {
     const bindChanges = (value) => {
-        const result=editorData;
+        const result = editorData;
         result[index]["content"] = value
         onChange(result);
-        displayPreview("<html><body>"+editorData[0]["content"]+"<style>" +editorData[1]["content"]+"</style><script>"+editorData[2]["content"]+"</script><body></html>")
+        displayPreview("<html><body>" + editorData[0]["content"] + "<style>" + editorData[1]["content"] + "</style><script>" + editorData[2]["content"] + "</script><body></html>")
     }
     return (
         <>
@@ -23,7 +24,7 @@ const Customeditor = ({editorData,index,onChange,displayPreview}) => {
                 mode={editorData[index].language}
                 onChange={bindChanges}
                 value={editorData[index]["content"]}
-                theme="monokai"
+                theme={editormode}
                 fontSize={14}
                 wrapEnabled={true}
                 highlightActiveLine={true}

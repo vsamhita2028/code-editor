@@ -8,7 +8,8 @@ import { Navbar, NavbarBrand, Col, Row, Button, Nav, NavItem, Dropdown, Dropdown
 import { Container } from 'react-bootstrap';
 function App() {
   const [layout, setLayout] = useState({ default: true, tri: false, fullscreen: false })
-  const [lightMode , setMode] = useState(true);
+  const [lightMode, setMode] = useState(true);
+  const [editorMode, setEditorMode] = useState("textmate")
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
   const [index, setIndex] = useState(0);
@@ -39,7 +40,7 @@ function App() {
     },
   ])
   const [preview, setPreview] = useState("<html><body>" + editorData[0]["content"] + "<style>" + editorData[1]["content"] + "</style><script>" + editorData[2]["content"] + "</script><body></html>");
-  const [fileExplorerBg,setFileExplorerBg] = useState("white")
+  const [fileExplorerBg, setFileExplorerBg] = useState("white")
   const toggleExplorer = () => {
     setCollapsed(!collapsed);
     setFlipIcon(!flipIcon)
@@ -51,9 +52,11 @@ function App() {
       setWidth("5");
     }
   }
-  const toggleLightMode = () =>{
+  const toggleLightMode = () => {
     setMode(!lightMode);
-    fileExplorerBg==="white" ? setFileExplorerBg("rgba(66, 66, 69, 1)"): setFileExplorerBg("white")
+    if (editorMode === "textmate") setEditorMode("monokai");
+    else setEditorMode("textmate")
+    fileExplorerBg === "white" ? setFileExplorerBg("rgba(66, 66, 69, 1)") : setFileExplorerBg("white")
   }
   const insertConent = (index) => {
     setIndex(index);
@@ -68,46 +71,41 @@ function App() {
       setLayout({ default: false, tri: true, fullscreen: false })
       setCollapsed(true);
     }
-    // if(!collapsed && layout=="triple"){
-    //   setWidth("7");
-    // }
   }
   return (
-    <div className="App" style={lightMode ? {backgroundColor :"rgb(241,243,244)"} : {backgroundColor :"rgba(41, 42, 47, 1)"} }>
+    <div className="App" style={lightMode ? { backgroundColor: "rgb(241,243,244)" } : { backgroundColor: "rgba(41, 42, 47, 1)" }}>
       <Container fluid>
         <Row>
           <Navbar color="dark" dark>
             <NavbarBrand href="/">Custom Editor</NavbarBrand>
             <Nav className="mr-auto" >
-              
-              {lightMode ?<NavItem style={{paddingRight:"10px"}}>
-                <IconContext.Provider value={{ color: "white", size: "37px"}}>
+
+              {!lightMode ? <NavItem style={{ paddingRight: "10px" }}>
+                <IconContext.Provider value={{ color: "white", size: "37px" }}>
                   <div onClick={toggleLightMode}><IoSunny /></div>
                 </IconContext.Provider>
               </NavItem> :
-              <NavItem style={{paddingRight:"10px"}}>
-                <IconContext.Provider value={{ color: "white", size: "37px"}}>
-                  <div onClick={toggleLightMode}><IoMoon /></div>
-                </IconContext.Provider>
-              </NavItem>}
+                <NavItem style={{ paddingRight: "10px" }}>
+                  <IconContext.Provider value={{ color: "white", size: "37px" }}>
+                    <div onClick={toggleLightMode}><IoMoon /></div>
+                  </IconContext.Provider>
+                </NavItem>}
               <NavItem>
-                <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
+                <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down" style={{ paddingRight: "15px" }}>
                   <DropdownToggle color="light" outline>
                     Change Layout
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem onClick={() => ChangeLayout("default")}>Default</DropdownItem>
                     <DropdownItem onClick={() => ChangeLayout("triple")}>Triple</DropdownItem>
-                    <DropdownItem>Full Screen</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
-                {/* <Button color="light" outline>Change Layout</Button> */}
               </NavItem>
             </Nav>
           </Navbar>
         </Row>
 
-        <Row  className="editor-section mt-2" style={layout.tri ? { height: "48em" } : { height: "400px" }} >
+        <Row className="editor-section mt-2" style={layout.tri ? { height: "48em" } : { height: "400px" }} >
           {collapsed &&
             <Col md={2} style={layout.tri ? { backgroundColor: fileExplorerBg, height: "94%" } : { backgroundColor: fileExplorerBg }} >
               <h3 className="mb-3 mt-2" style={{ color: "rgba(182, 179, 179, 1)" }}>File Explorer</h3>
@@ -129,16 +127,17 @@ function App() {
             </Col>}
           <Col md={width}>
             <h2><span><Button color={"light"} onClick={toggleExplorer}>{flipIcon ? <IoChevronForwardOutline /> : <IoChevronBackOutline />}</Button>{" "}<span className="custom-badge">{editorData[index]["language"]}</span></span> </h2>
-            {<Customeditor editorData={editorData} index={index} onChange={seteditorData} displayPreview={setPreview} />}
+            {<Customeditor editorData={editorData} index={index} onChange={seteditorData} displayPreview={setPreview} editormode={editorMode} />}
           </Col>
           {layout.tri && <Col md={5} className="mt-2">
             <center><span className="preview-badge" style={{ width: "5em", padding: "0.5em" }}>Preview</span></center>
-            <iframe title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="87.8%" ></iframe>
+            <iframe className={"mt-3"} title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="86.8%" ></iframe>
           </Col>}
         </Row>
-        {layout.default && <Row className="live-view mt-1 ">
-          <center><span className="preview-badge" style={{ width: "5em", padding: "0.5em" }}>Preview</span></center>
-          <iframe title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="290px"></iframe>
+        {layout.default && <Row className="live-view">
+          <center><span className="preview-badge" style={{ width: "5em", padding: "0.4em" }}>Preview</span></center>
+          <span className="mt-3"></span>
+          <iframe title="live-preview" srcDoc={preview} sandbox="allow-scripts" width="100%" height="275px"></iframe>
         </Row>}
       </Container>
     </div>
